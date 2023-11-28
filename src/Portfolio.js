@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import Compliments from './Compliments';
 import toggle from './toggle.png';
 import wai from './wai.png';
 import alarm from './alarmcar.jpg';
@@ -11,6 +12,7 @@ import js from './js.png';
 import java from './java.png';
 import cpp from './C++_logo.png';
 import sql from './sql.png';
+
 
 function Header({ currentSection }) {
   // Function to scroll to the section
@@ -105,17 +107,16 @@ function App() {
 
   return (
     <>
-    <Header currentSection={scrollingSection} />
     
-    <meta name="viewport" content="width=1200" />
+      <Header currentSection={scrollingSection} />
       
-    <div className={`App ${isBlurred ? 'blurred-background' : ''}`}>
-      <Header />
-      <section
-        id="about"
-        className={`content-section ${scrollingSection === 'about' ? 'active' : ''}`}
-      >
-        <h2 className="content-title">About Me</h2>
+      <meta name="viewport" content="width=1200" />
+      
+      <div className={`App ${isBlurred ? 'blurred-background' : ''}`}>
+
+        <section id="about" className={`content-section about-section ${scrollingSection === 'about' ? 'active' : ''}`}>
+          
+            <h2 className="content-title">About Me</h2>
         <div className="content-text">
           <p>
            Hello, my name is Brayden! I am a hardworking Software Engineer, who enjoys pursuing hard-to-reach goals
@@ -136,11 +137,8 @@ function App() {
             Outside of SWE, I enjoy things like film, mixed martial arts, and chess. Contact me if you would like to discuss these!
           </p>
         </div>
-      </section>
-      <section
-        id="experience"
-        className={`content-section ${scrollingSection === 'experience' ? 'active' : ''}`}
-      >
+        </section>
+        <section id="experience" className={`content-section experience-section ${scrollingSection === 'experience' ? 'active' : ''}`}>
         <h2 className="content-title">Experience & Achievements</h2>
         <div className="image-container">
         <img src={toggle} alt="Toggle Logo" />
@@ -201,11 +199,8 @@ function App() {
 
         </div>
         <hr class="dashed"></hr>
-      </section>
-      <section
-        id="projects"
-        className={`content-section ${scrollingSection === 'projects' ? 'active' : ''}`}
-      >
+        </section>
+        <section id="projects" className={`content-section projects-section ${scrollingSection === 'projects' ? 'active' : ''}`}>
         <h2 className="content-title">Projects</h2>
         <div className="project-title">
           <p>
@@ -225,21 +220,21 @@ function App() {
           </p>
           <h4>Key Features:</h4>
           <ul>
-              <li>
+             
                   <strong>Custom-built Car:</strong> The vehicle was meticulously assembled from scratch, incorporating a Raspberry Pi for 
                   enhanced customizability and control.
-              </li>
+              
               <p></p>
-              <li>
+            
                   <strong>Python Script:</strong> A specialized Python script was developed to manage the car’s actions. It includes 
                   randomized movement patterns triggered when the alarm is set off.
-              </li>
+            
               <p></p>
-              <li>
+              
                   <strong>Component Integration:</strong> The project features a sophisticated blend of various components - servo motors, 
                   standard motors, an alarm buzzer, LEDs, and an ultrasonic module. Each component was carefully programmed and integrated 
                   to achieve the desired functionality.
-              </li>
+              
           </ul>
           <hr class="dashed"></hr>
       </article>
@@ -250,7 +245,7 @@ function App() {
           </p>
           </div>
           <div className="image-car">
-            <img src={nba} className="image-car" alt="Nba Comparison" height="700" />
+           <img src={nba} className="image-car" alt="Nba Comparison" height="700"  />
           </div>
       <article>
         <p>
@@ -259,21 +254,21 @@ function App() {
         </p>
         <h4>Project Highlights:</h4>
         <ul>
-            <li>
+           
                 <strong>Data Integration:</strong> Utilized a public third-party NBA API to fetch comprehensive player statistics. The data 
                 spans from the inception of the NBA to the present, allowing for a broad analysis of player performances across different eras.
-            </li>
+            
             <p></p>
-            <li>
+           
                 <strong>Custom Algorithm Development:</strong> Developed a specialized algorithm that assigns varying weights to different 
                 statistical categories. This approach enables a more balanced and accurate representation of a player's overall impact and skill.
-            </li>
+            
             <p></p>
-            <li>
+          
                 <strong>Front-End Development:</strong> Personally handled the entire front-end development of the web application. This 
                 experience provided invaluable insights and proficiency in various front-end technologies, enhancing both the functional and 
                 aesthetic aspects of the application.
-            </li>
+           
         </ul>
         <hr class="dashed"></hr>
         </article>
@@ -292,33 +287,33 @@ function App() {
                 </p>
                 <h4>Core Features:</h4>
                 <ul>
-                    <li>
+                    
                         <strong>Customizable Timers:</strong> Enables users to set specific timers for focused study periods, ensuring productive and uninterrupted learning sessions.
-                    </li>
+                    
                     <p></p>
-                    <li>
+                  
                         <strong>Scheduled Break Times:</strong> Integrates the option to plan break times, facilitating a balanced study routine that prevents burnout.
-                    </li>
+                    
                     <p></p>
-                    <li>
+                 
                         <strong>Straightforward Planning:</strong> The app offers a straightforward, effortless interface for listing and planning study sessions, making it accessible and convenient for all users.
-                    </li>
+                   
                 </ul>
                 <hr class="dashed"></hr>
               </article>
 
 
         </div>
-      </section>
-      <section id="skills" className={`content-section ${scrollingSection === 'skills' ? 'active' : ''}`}>
-  <h2 className="content-title">Skills</h2>
+        </section>
+        <section id="skills" className={`content-section skills-section ${scrollingSection === 'skills' ? 'active' : ''}`}>
+        <h2 className="content-title">Skills</h2>
   <div className="skills-container">
     <div className="content-text1">
       <h3>Python <img src={python} className="image-logo" alt="python" height="100" /></h3>
       <p>Adept at Python, adept at leveraging its powerful libraries for data analysis, machine learning, and web development. My experience ranges from automating tasks to developing complex algorithms, emphasizing clean, efficient code.</p>
     </div>
     <div className="content-text1">
-      <h3>JavaScript <img src={js} className="image-car" alt="js" height="100" /></h3>
+      <h3>JavaScript <img src={js} className="image-logo" alt="js" height="80" /></h3>
       <p>Skilled in JavaScript, with a strong grasp of both front-end and back-end development. I excel in creating dynamic, user-friendly web applications using frameworks like React and Node.js, with a focus on performance and scalability.</p>
     </div>
     <div className="content-text1">
@@ -334,12 +329,8 @@ function App() {
       <p>Well-versed in MySQL, specializing in designing and managing databases. My skills include data modeling, query optimization, and ensuring data integrity, crucial for developing data-driven applications with efficient data storage solutions.</p>
     </div>
   </div>
-</section>
-<section
-        id="contact"
-        className={`content-section ${scrollingSection === 'contact' ? 'active' : ''}`}
-        style={{ paddingBottom: '350px' }}
-      >
+        </section>
+        <section id="contact" className={`content-section contact-section ${scrollingSection === 'contact' ? 'active' : ''}`} style={{ paddingBottom: '350px' }}>
         <h2 className="content-title">Contact Me</h2>
         <div className="content-text1">
           <p>Email: oneilb123@gmail.com</p>
@@ -347,8 +338,8 @@ function App() {
           <a href="https://www.linkedin.com/in/brayden-o-neil-32b405205/" target="_blank" class="content-text" rel="noreferrer">Connect with me on LinkedIn</a>
 
         </div>
-      </section>
-    </div>
+        </section>
+      </div>
     </>
   );
 }
