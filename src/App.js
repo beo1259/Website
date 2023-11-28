@@ -4,9 +4,7 @@ import './App.css';
 
 function App() {
   useEffect(() => {
-    // Add the class when the component mounts
     document.body.classList.add('body');
-    // Remove the class when the component unmounts
     return () => {
       document.body.classList.remove('body');
     };

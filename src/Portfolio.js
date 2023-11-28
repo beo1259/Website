@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Helmet } from 'react-helmet';
 import toggle from './toggle.png';
 import wai from './wai.png';
 import alarm from './alarmcar.jpg';
@@ -12,7 +13,7 @@ import java from './java.png';
 import cpp from './C++_logo.png';
 import sql from './sql.png';
 
-function Header() {
+function Header({ currentSection }) {
   // Function to scroll to the section
   const scrollToSection = (sectionId) => {
     const headerOffset = document.querySelector('.header').offsetHeight;
@@ -26,27 +27,31 @@ function Header() {
     });
   };
 
+  const getButtonClass = (sectionName) => {
+    return `button ${currentSection === sectionName ? 'active' : ''}`;
+  };
+
   return (
     <header className="header">
-      <button className="nameButton" onClick={() => scrollToSection('contact')}>BRAYDEN O'NEIL</button> {/* Name on the left */}
-      <div className="button-container"> {/* Buttons on the right */}
-        <button type="button" className="button" onClick={() => scrollToSection('about')}>About Me</button>
-        <button type="button" className="button" onClick={() => scrollToSection('experience')}>Experience</button>
-        <button type="button" className="button" onClick={() => scrollToSection('projects')}>Projects</button>
-        <button type="button" className="button" onClick={() => scrollToSection('skills')}>Skills</button>
+      <button className="nameButton" onClick={() => scrollToSection('contact')}>BRAYDEN O'NEIL</button>
+      <div className="button-container">
+        <button type="button" className={getButtonClass('about')} onClick={() => scrollToSection('about')}>About Me</button>
+        <button type="button" className={getButtonClass('experience')} onClick={() => scrollToSection('experience')}>Experience</button>
+        <button type="button" className={getButtonClass('projects')} onClick={() => scrollToSection('projects')}>Projects</button>
+        <button type="button" className={getButtonClass('skills')} onClick={() => scrollToSection('skills')}>Skills</button>
         <input 
           type="button" 
-          className="button" 
+          className={getButtonClass('resume')}
           onClick={() => window.open('https://drive.google.com/file/d/1aUXksLi6YUqksVmEPc_fmX5LpffzbZPw/view?usp=sharing')} 
           value="Resume"
-/>
+        />
       </div>
     </header>
   );
 }
 
 function App() {
-  const [scrollingSection, setScrollingSection] = useState(null);
+  const [scrollingSection, setScrollingSection] = useState('about');
   const [isBlurred, setIsBlurred] = useState(false);
 
   useEffect(() => {
@@ -54,30 +59,45 @@ function App() {
 
     const handleScroll = () => {
       const sections = ['about', 'experience', 'projects', 'skills', 'contact'];
-      const aboutSection = document.getElementById('about');
-      const aboutPosition = aboutSection.getBoundingClientRect().bottom + window.pageYOffset;
+      let foundSection = false;
 
-      // Check if the scroll position is past the 'About Me' section
-      if (window.scrollY > aboutPosition) {
-        setIsBlurred(true);
-      } else {
-        setIsBlurred(false);
-      }
+      // Threshold value to adjust when sections become active
+      const threshold = 700;
 
       for (const sectionId of sections) {
         const section = document.getElementById(sectionId);
-        const sectionPosition = section.getBoundingClientRect().bottom;
+        if (section) {
+          // Calculate the position of the section with the offset and threshold
+          const sectionTop = section.offsetTop - threshold;
+          const sectionBottom = section.offsetTop + section.offsetHeight - threshold;
 
-        const threshold = 700;
-
-        if (sectionPosition >= threshold) {
-          setScrollingSection(sectionId);
-          break;
+          // Check if the current scroll position is within the section bounds
+          if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionBottom) {
+            setScrollingSection(sectionId);
+            foundSection = true;
+            break;
+          }
         }
+      }
+
+      // Default to 'about' if no other section was found
+      if (!foundSection && window.pageYOffset < threshold) {
+        setScrollingSection('about');
+      }
+
+      // Determine if 'About Me' section is past the blurred point
+      const aboutSection = document.getElementById('about');
+      if (aboutSection) {
+        const aboutPosition = aboutSection.getBoundingClientRect().bottom + window.pageYOffset;
+        setIsBlurred(window.scrollY > aboutPosition);
       }
     };
 
+    // Call handleScroll on mount to set initial section
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       document.body.classList.remove('body');
       window.removeEventListener('scroll', handleScroll);
@@ -85,6 +105,11 @@ function App() {
   }, []);
 
   return (
+    <>
+    <Header currentSection={scrollingSection} />
+    <Helmet>
+        <meta name="viewport" content="width=1200" />
+      </Helmet>
     <div className={`App ${isBlurred ? 'blurred-background' : ''}`}>
       <Header />
       <section
@@ -314,16 +339,18 @@ function App() {
 <section
         id="contact"
         className={`content-section ${scrollingSection === 'contact' ? 'active' : ''}`}
+        style={{ paddingBottom: '350px' }}
       >
         <h2 className="content-title">Contact Me</h2>
         <div className="content-text1">
           <p>Email: oneilb123@gmail.com</p>
           <p>Phone: (905)-334-8591</p>
-          <a href="https://www.linkedin.com/in/brayden-o-neil-32b405205/" target="_blank" rel="noopener noreferrer" class="content-text">Connect with me on LinkedIn</a>
+          <a href="https://www.linkedin.com/in/brayden-o-neil-32b405205/" target="_blank" class="content-text">Connect with me on LinkedIn</a>
 
         </div>
       </section>
     </div>
+    </>
   );
 }
 
