@@ -344,7 +344,7 @@ function App() {
         <div className="content-text1">
           <p>Email: oneilb123@gmail.com</p>
           <p>Phone: (905)-334-8591</p>
-          <a href="https://www.linkedin.com/in/brayden-o-neil-32b405205/" target="_blank" class="content-text">Connect with me on LinkedIn</a>
+          <a href="https://www.linkedin.com/in/brayden-o-neil-32b405205/" target="_blank" class="content-text" rel="noreferrer">Connect with me on LinkedIn</a>
 
         </div>
       </section>
