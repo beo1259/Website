@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Helmet } from 'react-helmet';
 import toggle from './toggle.png';
 import wai from './wai.png';
 import alarm from './alarmcar.jpg';
@@ -107,9 +106,9 @@ function App() {
   return (
     <>
     <Header currentSection={scrollingSection} />
-    <Helmet>
-        <meta name="viewport" content="width=1200" />
-      </Helmet>
+    
+    <meta name="viewport" content="width=1200" />
+      
     <div className={`App ${isBlurred ? 'blurred-background' : ''}`}>
       <Header />
       <section
