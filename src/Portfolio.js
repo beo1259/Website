@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Compliments from './Compliments';
 import toggle from './toggle.png';
 import wai from './wai.png';
 import alarm from './alarmcar.jpg';
